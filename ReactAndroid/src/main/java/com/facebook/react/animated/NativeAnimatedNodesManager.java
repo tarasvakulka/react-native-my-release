@@ -176,10 +176,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void startListeningToAnimatedNodeValue(int tag, AnimatedNodeValueListener listener) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "startListeningToAnimatedNodeValue: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     ((ValueAnimatedNode) node).setValueListener(listener);
   }
@@ -188,10 +189,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void stopListeningToAnimatedNodeValue(int tag) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "startListeningToAnimatedNodeValue: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     ((ValueAnimatedNode) node).setValueListener(null);
   }
@@ -200,10 +202,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void setAnimatedNodeValue(int tag, double value) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "setAnimatedNodeValue: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     stopAnimationsForNode(node);
     ((ValueAnimatedNode) node).mValue = value;
@@ -214,10 +217,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void setAnimatedNodeOffset(int tag, double offset) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "setAnimatedNodeOffset: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     ((ValueAnimatedNode) node).mOffset = offset;
     mUpdatedNodes.put(tag, node);
@@ -227,10 +231,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void flattenAnimatedNodeOffset(int tag) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "flattenAnimatedNodeOffset: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     ((ValueAnimatedNode) node).flattenOffset();
   }
@@ -239,10 +244,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void extractAnimatedNodeOffset(int tag) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "extractAnimatedNodeOffset: Animated node ["
               + tag
-              + "] does not exist, or is not a 'value' node");
+              + "] does not exist, or is not a 'value' node"); */
     }
     ((ValueAnimatedNode) node).extractOffset();
   }
@@ -252,8 +258,9 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
       int animationId, int animatedNodeTag, ReadableMap animationConfig, Callback endCallback) {
     AnimatedNode node = mAnimatedNodes.get(animatedNodeTag);
     if (node == null) {
-      throw new JSApplicationIllegalArgumentException(
-          "startAnimatingNode: Animated node [" + animatedNodeTag + "] does not exist");
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
+          "startAnimatingNode: Animated node [" + animatedNodeTag + "] does not exist"); */
     }
     if (!(node instanceof ValueAnimatedNode)) {
       throw new JSApplicationIllegalArgumentException(
@@ -359,17 +366,19 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void connectAnimatedNodes(int parentNodeTag, int childNodeTag) {
     AnimatedNode parentNode = mAnimatedNodes.get(parentNodeTag);
     if (parentNode == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "connectAnimatedNodes: Animated node with tag (parent) ["
               + parentNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     AnimatedNode childNode = mAnimatedNodes.get(childNodeTag);
     if (childNode == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "connectAnimatedNodes: Animated node with tag (child) ["
               + childNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     parentNode.addChild(childNode);
     mUpdatedNodes.put(childNodeTag, childNode);
@@ -378,17 +387,19 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void disconnectAnimatedNodes(int parentNodeTag, int childNodeTag) {
     AnimatedNode parentNode = mAnimatedNodes.get(parentNodeTag);
     if (parentNode == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "disconnectAnimatedNodes: Animated node with tag (parent) ["
               + parentNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     AnimatedNode childNode = mAnimatedNodes.get(childNodeTag);
     if (childNode == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "disconnectAnimatedNodes: Animated node with tag (child) ["
               + childNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     parentNode.removeChild(childNode);
     mUpdatedNodes.put(childNodeTag, childNode);
@@ -398,10 +409,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void connectAnimatedNodeToView(int animatedNodeTag, int viewTag) {
     AnimatedNode node = mAnimatedNodes.get(animatedNodeTag);
     if (node == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "connectAnimatedNodeToView: Animated node with tag ["
               + animatedNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     if (!(node instanceof PropsAnimatedNode)) {
       throw new JSApplicationIllegalArgumentException(
@@ -437,10 +449,11 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void disconnectAnimatedNodeFromView(int animatedNodeTag, int viewTag) {
     AnimatedNode node = mAnimatedNodes.get(animatedNodeTag);
     if (node == null) {
-      throw new JSApplicationIllegalArgumentException(
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
           "disconnectAnimatedNodeFromView: Animated node with tag ["
               + animatedNodeTag
-              + "] does not exist");
+              + "] does not exist"); */
     }
     if (!(node instanceof PropsAnimatedNode)) {
       throw new JSApplicationIllegalArgumentException(
@@ -457,8 +470,9 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
   public void getValue(int tag, Callback callback) {
     AnimatedNode node = mAnimatedNodes.get(tag);
     if (node == null || !(node instanceof ValueAnimatedNode)) {
-      throw new JSApplicationIllegalArgumentException(
-          "getValue: Animated node with tag [" + tag + "] does not exist or is not a 'value' node");
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
+          "getValue: Animated node with tag [" + tag + "] does not exist or is not a 'value' node"); */
     }
     double value = ((ValueAnimatedNode) node).getValue();
     if (callback != null) {
@@ -505,8 +519,9 @@ public class NativeAnimatedNodesManager implements EventDispatcherListener {
     int nodeTag = eventMapping.getInt("animatedValueTag");
     AnimatedNode node = mAnimatedNodes.get(nodeTag);
     if (node == null) {
-      throw new JSApplicationIllegalArgumentException(
-          "addAnimatedEventToView: Animated node with tag [" + nodeTag + "] does not exist");
+      return;
+      /* throw new JSApplicationIllegalArgumentException(
+          "addAnimatedEventToView: Animated node with tag [" + nodeTag + "] does not exist"); */
     }
     if (!(node instanceof ValueAnimatedNode)) {
       throw new JSApplicationIllegalArgumentException(
