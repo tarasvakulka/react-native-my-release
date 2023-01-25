@@ -97,7 +97,8 @@ import java.util.Map;
     for (Map.Entry<String, Integer> entry : mPropNodeMapping.entrySet()) {
       @Nullable AnimatedNode node = mNativeAnimatedNodesManager.getNodeById(entry.getValue());
       if (node == null) {
-        throw new IllegalArgumentException("Mapped property node does not exists");
+        continue;
+        // throw new IllegalArgumentException("Mapped property node does not exists");
       } else if (node instanceof StyleAnimatedNode) {
         ((StyleAnimatedNode) node).collectViewUpdates(mPropMap);
       } else if (node instanceof ValueAnimatedNode) {
